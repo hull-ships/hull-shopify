@@ -5,9 +5,6 @@ import identity from './shopify/identity';
 export default function start(element, deployment, hull) {
   identity(hull);
   cart(hull);
-  // trackForm = formTrack(hull);
-  // const form = document.getElementById('add-to-cart');
-  // trackForm(form, 'Added Product', {
 }
 
 if (Hull) {
