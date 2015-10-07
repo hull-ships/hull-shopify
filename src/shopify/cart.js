@@ -53,7 +53,8 @@ export default function ajaxForm(hull) {
               category: item.product_type,
               quantity_change: quantity - item.quantity,
             };
-            hull.track('Updated Product', cleanup(track));
+            const eventName = (quantity > 0) ? 'Updated Product' : 'Removed Product';
+            hull.track(eventName, cleanup(track));
           } catch (e) {
             noop();
           }
