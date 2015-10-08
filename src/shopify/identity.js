@@ -1,5 +1,5 @@
 import _ from 'lodash';
-/* global jQuery */
+/* global jQuery, timber */
 
 // Live 'on' event handler
 const on = function(eventName, selector, callback) {
@@ -11,8 +11,20 @@ const on = function(eventName, selector, callback) {
   });
 };
 
-export default function identity(hull) {
+function removeTrapFocus(drawerName) {
+  if (
+    timber &&
+    timber[drawerName] &&
+    timber[drawerName].drawerIsOpen &&
+    timber[drawerName].removeTrapFocus &&
+    timber[drawerName].trapFocus &&
+    timber[drawerName].$drawer
+  ) {
+    timber[drawerName].removeTrapFocus(timber[drawerName].$drawer);
+  }
+}
 
+export default function identity(hull) {
   function emit(action) {
     hull.emit('hull.login.' + action, {
       redirect_url: window.location.href,
@@ -36,6 +48,7 @@ export default function identity(hull) {
     if (!user()) {
       event.preventDefault();
       event.stopPropagation();
+      removeTrapFocus('RightDrawer');
       hull.emit('hull.login.' + action, {
         redirect_url: '/checkout',
       });
