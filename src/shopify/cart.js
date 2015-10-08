@@ -1,32 +1,18 @@
-import _ from 'lodash';
 /* global ShopifyAPI */
 
-function cleanup(object) {
-  return _.omit(object, 'token');
-}
-export default function ajaxForm(hull) {
-  function noop() {}
+import operations from './cart-operations';
 
+function noop() {}
+
+export default function ajaxForm(hull) {
+  const ops = operations(hull);
   if (window.ShopifyAPI && window.ShopifyAPI.onCartUpdate) {
     // item add tracking call
     const addItemFromForm = window.ShopifyAPI.addItemFromForm;
     if (addItemFromForm) {
       window.ShopifyAPI.addItemFromForm = function(form, callback, errorCallback) {
         const addCallback = function(item = {} ) {
-          try {
-            const track = {
-              id: item.id,
-              sku: item.sku,
-              name: item.title,
-              price: item.price,
-              quantity: item.quantity,
-              category: item.product_type,
-            };
-            hull.track('Added Product', cleanup(track));
-          } catch (e) {
-            noop();
-          }
-
+          ops.add(item);
           if ((typeof callback) === 'function') {
             callback(item);
           } else {
@@ -44,21 +30,14 @@ export default function ajaxForm(hull) {
         const changeCallback = function(cart) {
           try {
             const item = cart.items[line];
-            const track = {
-              id: item.id,
-              sku: item.sku,
-              name: item.title,
-              price: item.price,
-              quantity: item.quantity,
-              category: item.product_type,
-              quantity_change: quantity - item.quantity,
-            };
-            const eventName = (quantity > 0) ? 'Updated Product' : 'Removed Product';
-            hull.track(eventName, cleanup(track));
+            if (item.quantity > 0) {
+              ops.update(item, quantity);
+            } else {
+              ops.remove(item, quantity);
+            }
           } catch (e) {
             noop();
           }
-
           if ((typeof callback) === 'function') {
             callback(cart);
           } else {
@@ -74,7 +53,7 @@ export default function ajaxForm(hull) {
       window.ShopifyAPI.updateCartNote = function(note, callback) {
         const updateCartNoteCallback = function(cart) {
           try {
-            hull.track('Update Cart Note', cleanup(note));
+            hull.track('Update Cart Note', note);
           } catch (e) {
             noop();
           }
