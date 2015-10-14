@@ -1,10 +1,14 @@
+/* global Hull, $*/
+
 import cart from './shopify/cart';
 import identity from './shopify/identity';
-/* global require, Hull, $*/
+import track from './shopify/track';
 
 export default function start(element, deployment, hull) {
-  identity(hull);
-  cart(hull);
+  const data = window.HullShopify || {};
+  identity(hull, data);
+  cart(hull, data);
+  track(hull, data);
 }
 
 if (Hull) {
