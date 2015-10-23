@@ -2,6 +2,11 @@ import cleanup from '../cleanup';
 
 function noop() {}
 
+function getPrice(item) {
+  if (item.price && item.price > 0) {
+    return item.price / 100;
+  }
+}
 
 export default function(hull) {
   function tryTrack(name, props) {
@@ -17,7 +22,7 @@ export default function(hull) {
         id: item.id,
         sku: item.sku,
         name: item.title,
-        price: item.price,
+        price: getPrice(item),
         quantity: item.quantity,
         category: item.product_type,
       });
@@ -27,7 +32,7 @@ export default function(hull) {
         id: item.id,
         sku: item.sku,
         name: item.title,
-        price: item.price,
+        price: getPrice(item),
         quantity: item.quantity,
         category: item.product_type,
         quantity_change: quantity - item.quantity,
@@ -38,7 +43,7 @@ export default function(hull) {
         id: item.id,
         sku: item.sku,
         name: item.title,
-        price: item.price,
+        price: getPrice(item),
         quantity: item.quantity,
         category: item.product_type,
         quantity_change: quantity - item.quantity,

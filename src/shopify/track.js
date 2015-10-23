@@ -1,11 +1,15 @@
 const Handlers = {
   product(hull, data) {
     if (data.product) {
+      let price;
+      if (data.product.price && data.product.price > 0) {
+        price = data.product.price / 100;
+      }
       return hull.track('Viewed Product', {
         id: '' + data.product.id,
         name: data.product.title,
         category: data.product.type,
-        price: data.product.price,
+        price: price,
       });
     }
   },
