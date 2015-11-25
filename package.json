@@ -5,7 +5,6 @@
   "homepage": "https://github.com/hull-ships/hull-shopify",
   "license": "MIT",
   "main": "dist/ship.js",
-  "readme": "readme.md",
   "author": {
     "name": "Hull",
     "email": "contact@hull.io",

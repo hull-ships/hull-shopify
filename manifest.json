@@ -5,6 +5,7 @@
   "index": "ship.js",
   "version": "0.0.1",
   "locales": ["en"],
+  "readme": "readme.md",
   "deployment_settings":[
     {
       "name"       : "_selector",
