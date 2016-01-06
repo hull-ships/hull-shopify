@@ -12,7 +12,9 @@ const on = function(eventName, selector, callback) {
 };
 
 function removeTrapFocus() {
-  window.jQuery && window.jQuery(document).off('focusin.drawer_focus');
+  if (window.jQuery) {
+    window.jQuery(document).off('focusin.drawer_focus');
+  }
 }
 
 export default function identity(hull) {
