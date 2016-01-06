@@ -11,17 +11,8 @@ const on = function(eventName, selector, callback) {
   });
 };
 
-function removeTrapFocus(drawerName) {
-  if (
-    timber &&
-    timber[drawerName] &&
-    timber[drawerName].drawerIsOpen &&
-    timber[drawerName].removeTrapFocus &&
-    timber[drawerName].trapFocus &&
-    timber[drawerName].$drawer
-  ) {
-    timber[drawerName].removeTrapFocus(timber[drawerName].$drawer);
-  }
+function removeTrapFocus() {
+  window.jQuery && window.jQuery(document).off('focusin.drawer_focus');
 }
 
 export default function identity(hull) {
@@ -40,6 +31,7 @@ export default function identity(hull) {
       if (!action) {return true; }
       event.preventDefault();
       event.stopPropagation();
+      removeTrapFocus();
       emit(action);
     }
   }
@@ -48,7 +40,7 @@ export default function identity(hull) {
     if (!user()) {
       event.preventDefault();
       event.stopPropagation();
-      removeTrapFocus('RightDrawer');
+      removeTrapFocus();
       hull.emit('hull.login.' + action, {
         redirect_url: '/checkout',
       });
