@@ -44,6 +44,9 @@ export default function identity(hull) {
       event.stopPropagation();
       removeTrapFocus();
       login(action, '/checkout');
+      hull.once('hull.login.dialogHidden', function() {
+        window.location.href = '/checkout';
+      });
     }
   }
 
