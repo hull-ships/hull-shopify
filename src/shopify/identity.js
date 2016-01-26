@@ -18,9 +18,9 @@ function removeTrapFocus() {
 }
 
 export default function identity(hull) {
-  function emit(action) {
+  function login(action, redirect) {
     hull.emit('hull.login.' + action, {
-      redirect_url: window.location.href,
+      redirect_url: redirect,
     });
   }
 
@@ -34,7 +34,7 @@ export default function identity(hull) {
       event.preventDefault();
       event.stopPropagation();
       removeTrapFocus();
-      emit(action);
+      login(action, window.location.href);
     }
   }
 
@@ -43,8 +43,9 @@ export default function identity(hull) {
       event.preventDefault();
       event.stopPropagation();
       removeTrapFocus();
-      hull.emit('hull.login.' + action, {
-        redirect_url: '/checkout',
+      login(action, '/checkout');
+      hull.once('hull.login.dialogHidden', function() {
+        window.location.href = '/checkout';
       });
     }
   }
