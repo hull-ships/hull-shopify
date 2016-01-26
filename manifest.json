@@ -3,6 +3,7 @@
   "description": "Hull Shopify integration",
   "picture": "picture.png",
   "index": "ship.js",
+  "ui":false,
   "version": "0.0.1",
   "locales": ["en"],
   "readme": "readme.md",
