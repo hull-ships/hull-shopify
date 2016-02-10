@@ -21,6 +21,14 @@
       "format"     : "string"
     }
   ],
-  "settings": [],
+  "settings": [
+    {
+      "name": "detect_login_ship",
+      "type": "string",
+      "format" : "hidden",
+      "required" : false,
+      "default" : "hull-login"
+    }
+  ],
   "resources": []
 }

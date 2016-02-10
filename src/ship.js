@@ -8,11 +8,15 @@ import track from './shopify/track';
 
 export default function start(element, deployment, hull) {
   const data = window.HullShopify || {};
+  const settings = deployment.ship.settings || {};
 
   cart(hull, data);
   track(hull, data);
 
-  detectShip(hull, 'hull-login').then(function(present) {
+
+  const detectLoginShip = settings.detect_login_ship || 'hull-login';
+
+  detectShip(hull, detectLoginShip).then(function(present) {
     if (present) {
       identity(hull, data);
     }
