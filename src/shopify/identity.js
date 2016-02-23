@@ -18,10 +18,8 @@ function removeTrapFocus() {
 }
 
 export default function identity(hull) {
-  function login(action, redirect) {
-    hull.emit('hull.login.' + action, {
-      redirect_url: redirect,
-    });
+  function login(action, options) {
+    hull.emit('hull.login.' + action, options);
   }
 
   function user() {
@@ -30,11 +28,13 @@ export default function identity(hull) {
 
   function captureLink(action, event) {
     if (!user()) {
-      if (!action) {return true; }
+      if (!action) {
+        return true;
+      }
       event.preventDefault();
       event.stopPropagation();
       removeTrapFocus();
-      login(action, window.location.href);
+      login(action);
     }
   }
 
@@ -43,7 +43,7 @@ export default function identity(hull) {
       event.preventDefault();
       event.stopPropagation();
       removeTrapFocus();
-      login(action, '/checkout');
+      login(action, { redirect_url: '/checkout' });
       hull.once('hull.login.dialogHidden', function() {
         window.location.href = '/checkout';
       });
