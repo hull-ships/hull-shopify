@@ -2,7 +2,7 @@
 
 import detectShip from './lib/detect-ship';
 
-import cart from './shopify/cart';
+// import cart from './shopify/cart';
 import identity from './shopify/identity';
 import track from './shopify/track';
 
@@ -10,9 +10,8 @@ export default function start(element, deployment, hull) {
   const data = window.HullShopify || {};
   const settings = deployment.ship.settings || {};
 
-  cart(hull, data);
+  // cart(hull, data);
   track(hull, data);
-
 
   const detectLoginShip = settings.detect_login_ship || 'hull-login';
 
