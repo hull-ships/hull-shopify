@@ -13,7 +13,11 @@ const on = function(eventName, selector, callback) {
 
 function removeTrapFocus() {
   if (window.jQuery) {
-    window.jQuery(document).off('focusin.drawer_focus');
+    try {
+      window.jQuery(document).off('focusin.drawer_focus');
+    } catch (err) {
+      // do not fail here
+    }
   }
 }
 
