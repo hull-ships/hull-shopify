@@ -28,6 +28,14 @@
       "format" : "hidden",
       "required" : false,
       "default" : "hull-login"
+    }, {
+      "name": "capture_form_selector",
+      "title": "Capture clicks on ajax cart form submissions",
+      "description" : "CSS selector to target the ajaxcart form",
+      "type": "string",
+      "format" : "hidden",
+      "required" : false,
+      "default" : "form.ajaxcart"
     }
   ],
   "resources": []

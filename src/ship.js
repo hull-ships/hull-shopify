@@ -17,7 +17,7 @@ export default function start(element, deployment, hull) {
 
   detectShip(hull, detectLoginShip).then(function(present) {
     if (present) {
-      identity(hull, data);
+      identity(hull, data, settings);
     }
   });
 }

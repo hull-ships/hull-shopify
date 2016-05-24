@@ -21,7 +21,7 @@ function removeTrapFocus() {
   }
 }
 
-export default function identity(hull) {
+export default function identity(hull, data = {}, settings = {}) {
   function login(action, options) {
     hull.emit('hull.login.' + action, options);
   }
@@ -65,7 +65,11 @@ export default function identity(hull) {
   const logoutLinks = document.querySelectorAll('[href^="/account/logout"]');
   const accountLinks = document.querySelectorAll('[href="/account"]');
 
-  on('submit', 'form.ajaxcart', captureForm.bind(this, 'activateLogInSection'));
+
+  const { capture_form_selector = 'form.ajaxcart' } = settings;
+  if (capture_form_selector && capture_form_selector.length) {
+    on('submit', capture_form_selector, captureForm.bind(this, 'activateLogInSection'));
+  }
 
   _.each(loginLinks, (link) => {
     link.addEventListener('click', captureLink.bind(this, 'activateLogInSection'));
