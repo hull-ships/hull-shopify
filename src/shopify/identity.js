@@ -15,6 +15,7 @@ function removeTrapFocus() {
   if (window.jQuery) {
     try {
       window.jQuery(document).off('focusin.drawer_focus');
+      window.jQuery(document).off('focusin');
     } catch (err) {
       // do not fail here
     }
