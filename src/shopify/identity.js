@@ -20,6 +20,14 @@ function removeTrapFocus() {
       // do not fail here
     }
   }
+  if (window.$) {
+    try {
+      window.$(document).off('focusin.drawer_focus');
+      window.$(document).off('focusin');
+    } catch (err) {
+      // do not fail here
+    }
+  }
 }
 
 export default function identity(hull, data = {}, settings = {}) {
